@@ -2,6 +2,12 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
+  "git": "https://github.com/singapuriyudhish27/portfolio.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/singapuriyudhish27/portfolio.git"
+  },
+  "author": "singapuriyudhish2@gmail.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
