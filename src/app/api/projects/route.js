@@ -18,7 +18,11 @@ export async function POST(request) {
     return NextResponse.json({ project: created }, { status: 201 });
   } catch (error) {
     console.error("POST /api/projects failed", error);
-    const status = error.message?.includes("required") ? 400 : 500;
+    const status = error.message?.includes("required")
+      ? 400
+      : error.message?.toLowerCase().includes("database unavailable")
+      ? 503
+      : 500;
     return NextResponse.json({ error: error.message || "Unable to create project" }, { status });
   }
 }

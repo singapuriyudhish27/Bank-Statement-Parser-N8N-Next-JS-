@@ -14,8 +14,25 @@ function hasConfig() {
   return Boolean(dbConfig.host && dbConfig.user && dbConfig.database);
 }
 
+function isLocalHost(hostname) {
+  return hostname === "127.0.0.1" || hostname === "localhost";
+}
+
+function shouldSkipInProd() {
+  return (
+    process.env.NODE_ENV === "production" &&
+    (!hasConfig() || isLocalHost(dbConfig.host))
+  );
+}
+
 export function getPool() {
   if (pool) return pool;
+  if (shouldSkipInProd()) {
+    console.warn(
+      "Database not reachable in production. Skipping DB pool creation and falling back to static data."
+    );
+    return null;
+  }
   if (!hasConfig()) {
     return null;
   }
@@ -33,7 +50,9 @@ export function getPool() {
 export async function ensureConnection() {
   const connection = getPool();
   if (!connection) {
-    throw new Error("Database configuration missing. Add DB_HOST, DB_USER, DB_PASSWORD, DB_NAME to .env.");
+    throw new Error(
+      "Database unavailable. Provide DB_HOST/DB_USER/DB_PASSWORD/DB_NAME and avoid localhost in production."
+    );
   }
   return connection;
 }
