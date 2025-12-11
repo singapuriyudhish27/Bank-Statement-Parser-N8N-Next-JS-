@@ -1,34 +1,6 @@
 import { ensureConnection, getPool } from "./db";
 
-const fallbackProjects = [
-  {
-    id: "fallback-1",
-    title: "Founder CRM & client portal",
-    description: "Built a secure portal with client onboarding, billing integrations, and automation-ready webhooks.",
-    category: "Web Application",
-    status: "Live",
-    tags: ["Next.js", "MySQL", "Stripe", "Auth"],
-    link: "#",
-  },
-  {
-    id: "fallback-2",
-    title: "Lead enrichment & routing (n8n)",
-    description: "Automated lead capture across forms, enriched with Clearbit-like data, deduped, and routed instantly.",
-    category: "n8n Workflow",
-    status: "Live",
-    tags: ["n8n", "Webhooks", "Queues"],
-    link: "#",
-  },
-  {
-    id: "fallback-3",
-    title: "Product launch stack",
-    description: "Landing + waitlist logic, onboarding emails, analytics events, and edge caching for global speed.",
-    category: "Web Application",
-    status: "Delivered",
-    tags: ["Next.js", "Email", "Analytics"],
-    link: "#",
-  },
-];
+const fallbackProjects = [];
 
 async function ensureProjectsTable(pool) {
   await pool.query(`
