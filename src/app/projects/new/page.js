@@ -75,6 +75,9 @@ export default function NewProjectPage() {
             .map((t) => t.trim())
             .filter(Boolean),
           period: form.period,
+          // Include admin credentials for server-side authentication
+          email: loginForm.email,
+          password: loginForm.password,
         }),
       });
 

@@ -56,11 +56,18 @@ export default async function ProjectsPage() {
                   ))}
                 </div>
               ) : null}
-              {project.link ? (
-                <a className="btn btn-ghost" href={project.link} target="_blank" rel="noreferrer">
-                  View project
-                </a>
-              ) : null}
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
+                {project.link ? (
+                  <a className="btn btn-ghost" href={project.link} target="_blank" rel="noreferrer">
+                    View project
+                  </a>
+                ) : null}
+                {project.id ? (
+                  <Link className="btn btn-ghost" href={`/projects/${project.id}/edit`}>
+                    Edit
+                  </Link>
+                ) : null}
+              </div>
             </div>
           ))}
         </div>
