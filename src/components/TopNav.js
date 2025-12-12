@@ -33,7 +33,7 @@ export function TopNav() {
             {link.label}
           </Link>
         ))}
-        <ProtectedButton className="pill nav-pill" href="/connect">
+        <ProtectedButton className="pill nav-pill" href="/connect" redirectToLogin>
           Connect
         </ProtectedButton>
         {hydrated && !isAuthenticated && (

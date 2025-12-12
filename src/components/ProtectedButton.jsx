@@ -1,18 +1,37 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginModal } from "./LoginModal";
 
-export function ProtectedButton({ children, onClick, className, href, ...props }) {
+export function ProtectedButton({
+  children,
+  onClick,
+  className,
+  href,
+  redirectToLogin = false,
+  ...props
+}) {
+  const router = useRouter();
   const { isAuthenticated } = useAuth();
   const [loginOpen, setLoginOpen] = useState(false);
 
   const handleClick = (e) => {
     if (!isAuthenticated) {
       e.preventDefault();
+
+      if (redirectToLogin) {
+        const next = href || "/";
+        router.push(`/login?redirect=${encodeURIComponent(next)}`);
+        return;
+      }
+
       setLoginOpen(true);
-    } else if (onClick) {
+      return;
+    }
+
+    if (onClick) {
       onClick(e);
     }
   };
