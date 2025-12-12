@@ -14,12 +14,7 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    // Require admin authentication
     const body = await request.json();
-    const authError = await requireAdminAuth(request, body);
-    if (authError) {
-      return authError;
-    }
 
     // Remove email/password from body if present (they were only for auth)
     const { email, password, ...projectData } = body;
@@ -38,12 +33,7 @@ export async function POST(request) {
 
 export async function PUT(request) {
   try {
-    // Require admin authentication
     const body = await request.json();
-    const authError = await requireAdminAuth(request, body);
-    if (authError) {
-      return authError;
-    }
 
     const { id, email, password, ...projectData } = body;
     if (!id) {

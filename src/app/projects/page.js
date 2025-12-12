@@ -85,7 +85,7 @@ export default async function ProjectsPage() {
 
   return (
     <div className="page">
-      <div className="content">
+      <div className="content" suppressHydrationWarning>
         <TopNav />
 
         <section className="section">
