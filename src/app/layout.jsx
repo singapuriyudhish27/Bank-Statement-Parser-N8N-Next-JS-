@@ -18,6 +18,8 @@ export const metadata = {
     "Premium portfolio for showcasing web applications, automation workflows, and client-ready services.",
 };
 
+import { Scene3D } from "@/components/Scene3D";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -25,6 +27,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
+          <Scene3D />
           {children}
         </AuthProvider>
       </body>

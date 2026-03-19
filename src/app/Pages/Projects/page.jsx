@@ -3,6 +3,7 @@ import { TopNav } from "@/components/TopNav";
 import { getProjects } from "@/lib/projects";
 import { ProtectedButton } from "@/components/ProtectedButton";
 import { AdminOnly } from "@/components/AdminOnly";
+import { InteractiveCard } from "@/components/InteractiveCard";
 
 export const revalidate = 0;
 
@@ -42,7 +43,7 @@ export default async function ProjectsPage() {
       {items.length ? (
         <div className="card-grid">
           {items.map((project) => (
-            <div key={project.id || project.title} className="glass project-card">
+            <InteractiveCard key={project.id || project.title} className="project-card">
               <div className="project-meta">
                 <span className="pill-ghost">{project.category || "Web Application"}</span>
                 <span className="pill-ghost">{project.status || "Delivered"}</span>
@@ -66,19 +67,19 @@ export default async function ProjectsPage() {
                 ) : null}
                 {project.id ? (
                   <AdminOnly>
-                    <Link className="btn btn-ghost" href={`/projects/${project.id}/edit`}>
+                    <Link className="btn btn-ghost" href={`/Pages/Projects/${project.id}/edit`}>
                       Edit
                     </Link>
                   </AdminOnly>
                 ) : null}
               </div>
-            </div>
+            </InteractiveCard>
           ))}
         </div>
       ) : (
-        <div className="glass" style={{ padding: 18 }}>
+        <InteractiveCard style={{ padding: 18 }}>
           <div className="subtle">{emptyCopy}</div>
-        </div>
+        </InteractiveCard>
       )}
     </section>
   );
@@ -95,7 +96,7 @@ export default async function ProjectsPage() {
               <span className="pill">Web apps · n8n workflows</span>
             </div>
             <AdminOnly>
-              <Link className="btn btn-primary" href="/projects/new">
+              <Link className="btn btn-primary" href="/Pages/Projects/new">
                 Add new project
               </Link>
             </AdminOnly>
@@ -118,16 +119,18 @@ export default async function ProjectsPage() {
         {sectionBlock("N8N Workflows", n8n, "Add N8N workflow projects to see them here.")}
 
         <div className="footer-cta">
-          <h3>Want to see a specific workflow or app?</h3>
-          <p className="subtle">Tell me what you need and I&apos;ll share the most relevant examples.</p>
-          <div className="cta-row" style={{ justifyContent: "center" }}>
-            <ProtectedButton className="btn btn-primary" href="/connect">
-              Connect with me
-            </ProtectedButton>
-            <Link className="btn btn-ghost" href="/">
-              Back to home
-            </Link>
-          </div>
+          <InteractiveCard style={{ background: "transparent", border: "none", boxShadow: "none" }}>
+            <h3>Want to see a specific workflow or app?</h3>
+            <p className="subtle">Tell me what you need and I&apos;ll share the most relevant examples.</p>
+            <div className="cta-row" style={{ justifyContent: "center" }}>
+              <ProtectedButton className="btn btn-primary" href="/Pages/Connect" redirectToLogin>
+                Connect with me
+              </ProtectedButton>
+              <Link className="btn btn-ghost" href="/">
+                Back to home
+              </Link>
+            </div>
+          </InteractiveCard>
         </div>
       </div>
     </div>

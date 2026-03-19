@@ -42,7 +42,7 @@ export default function EditProjectPage() {
           return;
         }
 
-        const res = await fetch(`/api/projects/${projectId}`);
+        const res = await fetch(`/api/Pages/projects/${projectId}`);
         const data = await res.json();
         
         if (!res.ok) {
@@ -81,7 +81,7 @@ export default function EditProjectPage() {
     setMessage(null);
 
     try {
-      const res = await fetch("/api/projects", {
+      const res = await fetch("/api/Pages/projects", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -105,7 +105,7 @@ export default function EditProjectPage() {
 
       setMessage({ type: "success", text: "Project updated successfully." });
       setTimeout(() => {
-        router.push("/projects");
+        router.push("/Pages/Projects");
       }, 1500);
     } catch (error) {
       setMessage({ type: "error", text: error.message || "Something went wrong." });
@@ -224,7 +224,7 @@ export default function EditProjectPage() {
                 <button className="btn btn-primary" type="submit" disabled={saving}>
                   {saving ? "Updating..." : "Update project"}
                 </button>
-                <Link className="btn btn-ghost" href="/projects">
+                <Link className="btn btn-ghost" href="/Pages/Projects">
                   Back to projects
                 </Link>
               </div>

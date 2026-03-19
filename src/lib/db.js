@@ -15,16 +15,6 @@ function hasConfig() {
   return Boolean(dbConfig.host && dbConfig.user && dbConfig.database);
 }
 
-function isLocalHost(hostname) {
-  return hostname === "127.0.0.1" || hostname === "localhost";
-}
-
-function shouldSkipInProd() {
-  return (
-    process.env.NODE_ENV === "production" &&
-    (!hasConfig() || isLocalHost(dbConfig.host))
-  );
-}
 
 async function ensureDatabaseExists() {
   const { database, ...baseConfig } = dbConfig;
@@ -41,11 +31,6 @@ async function ensureDatabaseExists() {
 
 async function createPool() {
   if (pool) return pool;
-  if (shouldSkipInProd()) {
-    throw new Error(
-      "Database not reachable in production. Provide DB_HOST/DB_USER/DB_PASSWORD/DB_NAME and avoid localhost in production."
-    );
-  }
   if (!hasConfig()) {
     throw new Error("Database configuration is missing. Please set DB_HOST, DB_USER, DB_PASSWORD, DB_NAME.");
   }

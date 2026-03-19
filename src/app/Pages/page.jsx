@@ -1,9 +1,14 @@
+// HomePage is a Server Component to fetch data directly from MySQL
+
+
 import Image from "next/image";
 import Link from "next/link";
 import { getProjects } from "@/lib/projects";
 import { TopNav } from "@/components/TopNav";
 import { ContactModalTrigger } from "@/components/ContactModalTrigger";
 import { ProtectedButton } from "@/components/ProtectedButton";
+import { Hero3D } from "@/components/Hero3D";
+import { InteractiveCard } from "@/components/InteractiveCard";
 
 export const revalidate = 0;
 
@@ -31,6 +36,7 @@ const skills = [
 
 export default async function HomePage() {
   const projects = await getProjects();
+
   const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
   const contactPhone = process.env.NEXT_PUBLIC_CONTACT_PHONE || "";
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || contactPhone || "";
@@ -46,58 +52,62 @@ export default async function HomePage() {
         <TopNav />
 
         <section className="hero">
-          <div>
-            <div className="eyebrow">Full-stack developer & AI Automations-N8N developer</div>
-            <h1>
-              Hi, I&apos;m <span>Yudhish Singapuri</span>. I build premium{" "}
-              <span>web Applications</span> and <span>AI Automation workflows</span> to reduce human efforts.
-            </h1>
-            <p className="lead">
-              From strategy to launch, I ship polished products, integrate the tools you already use, and automate the
-              busywork so you can move faster.
-            </p>
-            <div className="cta-row">
-              <ContactModalTrigger triggerText="Book a call" variant="primary" />
-              <ProtectedButton className="btn btn-ghost" href={`tel:${contactPhone}`}>
-                Call me
-              </ProtectedButton>
-              <Link className="btn btn-ghost" href="/projects">
-                View projects
-              </Link>
-            </div>
-            <div className="stats">
-              {stats.map((item) => (
-                <div className="stat-card" key={item.label}>
-                  <h3>{item.value}</h3>
-                  <p>{item.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="hero-right">
-            <div className="hero-profile-wrap">
-              <div className="hero-profile">
-                <Image src="/profile.jpg" alt="Portrait of Yudhish Singapuri" width={260} height={260} priority />
-              </div>
-            </div>
-            <div className="glass">
-              <div className="badge">Delivery Approach</div>
-              <h3 style={{ marginTop: 10, marginBottom: 6 }}>Strategy → Build → Automate</h3>
-              <p className="subtle">
-                Opinionated processes so you can see progress weekly: scoped sprints, transparent updates, and
-                observability baked in.
+          <Hero3D>
+            <div>
+              <div className="eyebrow">Full-stack developer & AI Automations-N8N developer</div>
+              <h1>
+                Hi, I&apos;m <span>Yudhish Singapuri</span>. I build premium{" "}
+                <span>web Applications</span> and <span>AI Automation workflows</span> to reduce human efforts.
+              </h1>
+              <p className="lead">
+                From strategy to launch, I ship polished products, integrate the tools you already use, and automate the
+                busywork so you can move faster.
               </p>
-              <div className="tags" style={{ marginTop: 12 }}>
-                {["Next.js", "React", "MySQL", "MongoDB", "N8N", "REST API", "API Integration", "Authentication", "Deploy"].map((tag) => (
-                  <span className="tag" key={tag}>
-                    {tag}
-                  </span>
+              <div className="cta-row">
+                <ContactModalTrigger triggerText="Book a call" variant="primary" />
+                <ProtectedButton className="btn btn-ghost" href={`tel:${contactPhone}`}>
+                  Call me
+                </ProtectedButton>
+                <Link className="btn btn-ghost" href="/Pages/Projects">
+                  View projects
+                </Link>
+              </div>
+              <div className="stats">
+                {stats.map((item) => (
+                  <div className="stat-card" key={item.label}>
+                    <h3>{item.value}</h3>
+                    <p>{item.label}</p>
+                  </div>
                 ))}
               </div>
-              <div style={{ marginTop: 16 }}>
-                <div className="pill-ghost">Edge deployments · Secure forms · SEO ready</div>
-              </div>
             </div>
+          </Hero3D>
+          <div className="hero-right">
+            <InteractiveCard>
+              <div className="hero-profile-wrap">
+                <div className="hero-profile">
+                  <Image src="/profile.jpg" alt="Portrait of Yudhish Singapuri" width={260} height={260} priority />
+                </div>
+              </div>
+              <div className="glass">
+                <div className="badge">Delivery Approach</div>
+                <h3 style={{ marginTop: 10, marginBottom: 6 }}>Strategy → Build → Automate</h3>
+                <p className="subtle">
+                  Opinionated processes so you can see progress weekly: scoped sprints, transparent updates, and
+                  observability baked in.
+                </p>
+                <div className="tags" style={{ marginTop: 12 }}>
+                  {["Next.js", "React", "MySQL", "MongoDB", "N8N", "REST API", "API Integration", "Authentication", "Deploy"].map((tag) => (
+                    <span className="tag" key={tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div style={{ marginTop: 16 }}>
+                  <div className="pill-ghost">Edge deployments · Secure forms · SEO ready</div>
+                </div>
+              </div>
+            </InteractiveCard>
           </div>
         </section>
 
@@ -108,7 +118,7 @@ export default async function HomePage() {
           </div>
           <div className="skills-grid">
             {skills.map((skill) => (
-              <div key={skill.title} className="skill-card">
+              <InteractiveCard key={skill.title} className="skill-card">
                 <div className="skill-title">{skill.title}</div>
                 <div className="tags">
                   {skill.items.map((item) => (
@@ -117,7 +127,7 @@ export default async function HomePage() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </InteractiveCard>
             ))}
           </div>
         </section>
@@ -129,7 +139,7 @@ export default async function HomePage() {
           </div>
           <div className="card-grid">
             {webAppProjects.map((project) => (
-              <div key={project.id || project.title} className="glass project-card">
+              <InteractiveCard key={project.id || project.title} className="project-card">
                 <div className="project-meta">
                   <span className="pill-ghost">{project.category || "Web Application"}</span>
                   <span className="pill-ghost">{project.status || "Delivered"}</span>
@@ -150,7 +160,7 @@ export default async function HomePage() {
                     View project
                   </a>
                 ) : null}
-              </div>
+              </InteractiveCard>
             ))}
           </div>
         </section>
@@ -163,7 +173,7 @@ export default async function HomePage() {
             </div>
             <div className="card-grid">
               {n8nProjects.map((project) => (
-                <div key={project.id || project.title} className="glass project-card">
+                <InteractiveCard key={project.id || project.title} className="project-card">
                   <div className="project-meta">
                     <span className="pill-ghost">{project.category || "N8N Workflow"}</span>
                     <span className="pill-ghost">{project.status || "Delivered"}</span>
@@ -184,7 +194,7 @@ export default async function HomePage() {
                       View project
                     </a>
                   ) : null}
-                </div>
+                </InteractiveCard>
               ))}
             </div>
           </section>
@@ -193,7 +203,7 @@ export default async function HomePage() {
         
 
         <section className="section contact">
-          <div className="contact-card">
+          <InteractiveCard className="contact-card" style={{ background: "transparent", border: "none", boxShadow: "none" }}>
             <div className="badge">Let&apos;s build</div>
             <h3 style={{ marginTop: 10, marginBottom: 10 }}>Tell me about your project</h3>
             <p className="subtle">
@@ -228,8 +238,8 @@ export default async function HomePage() {
                 </a>
               </div>
             </div>
-          </div>
-          <div className="glass workflow-card">
+          </InteractiveCard>
+          <InteractiveCard className="glass workflow-card">
             <div className="badge">Process</div>
             <h3>Working together</h3>
             <div className="tags">
@@ -246,24 +256,26 @@ export default async function HomePage() {
               changes—ready for a lightweight admin UI or CMS later.
             </p>
             <div style={{ marginTop: 12 }}>
-              <ProtectedButton className="btn btn-primary" href="/connect">
+              <ProtectedButton className="btn btn-primary" href="/Pages/Connect">
                 Connect with me
               </ProtectedButton>
             </div>
-          </div>
+          </InteractiveCard>
         </section>
 
         <div className="footer-cta">
-          <h3>Ready to ship something great?</h3>
-          <p className="subtle">
-            I handle the stack so you can focus on the business. Premium design, reliable automations, clean handover.
-          </p>
-          <div className="cta-row" style={{ justifyContent: "center" }}>
-            <ContactModalTrigger triggerText="Start a project" variant="primary" />
-            <ProtectedButton className="btn btn-ghost" href={`tel:${contactPhone}`}>
-              Talk on the phone
-            </ProtectedButton>
-          </div>
+          <InteractiveCard style={{ background: "transparent", border: "none", boxShadow: "none" }}>
+            <h3>Ready to ship something great?</h3>
+            <p className="subtle">
+              I handle the stack so you can focus on the business. Premium design, reliable automations, clean handover.
+            </p>
+            <div className="cta-row" style={{ justifyContent: "center" }}>
+              <ContactModalTrigger triggerText="Start a project" variant="primary" />
+              <ProtectedButton className="btn btn-ghost" href={`tel:${contactPhone}`}>
+                Talk on the phone
+              </ProtectedButton>
+            </div>
+          </InteractiveCard>
         </div>
       </div>
     </div>
