@@ -54,7 +54,7 @@ export default async function HomePage() {
         <section className="hero">
           <Hero3D>
             <div>
-              <div className="eyebrow">Full-stack developer & AI Automations-N8N developer</div>
+              <div className="eyebrow">Full Stack Developer & AI Automations-N8N Engineer</div>
               <h1>
                 Hi, I&apos;m <span>Yudhish Singapuri</span>. I build premium{" "}
                 <span>web Applications</span> and <span>AI Automation workflows</span> to reduce human efforts.
